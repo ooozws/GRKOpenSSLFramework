@@ -48,7 +48,7 @@ function usage()
 {
 	[[ "$@" = "" ]] || echo "$@" >&2
 	echo "Usage:" >&2
-	echo "$0 build|valid|clean" >&2
+	echo "$0 build|valid [ios|macos]|clean" >&2
 	echo "    build   Builds OpenSSL libraries from source." >&2
 	echo "    header  Generates macOS and iOS umbrella headers." >&2
 	echo "    valid   Validates the frameworks." >&2
@@ -93,8 +93,31 @@ function header()
 
 function valid()
 {
+	local args=${@:-"ios" "macos"}
+	for OS in ${args[@]}
+	do
+		case $OS in
+			ios)
+				valid_ios
+			;;
+			macos)
+				valid_macos
+			;;
+			*)
+				# Unknown option
+				usage
+			;;
+		esac
+	done
+}
+
+function valid_ios()
+{
+	echo "Validating ios framework..."
+
 	local VALID=1
-	local LIB_BIN="${IOS_BUILD_DIR}/${FRAMEWORK_BIN}"
+	local BUILD_DIR="${IOS_BUILD_DIR}"
+	local LIB_BIN="${BUILD_DIR}/${FRAMEWORK_BIN}"
 	
 	if [ -r "${LIB_BIN}" ]; then
 		# Check expected architectures
@@ -132,7 +155,46 @@ function valid()
 			fi
 		done
 		
-		local EXPECTING=("${IOS_BUILD_DIR}/${FRAMEWORK}/Modules/module.modulemap")
+		local EXPECTING=("${BUILD_DIR}/${FRAMEWORK}/Modules/module.modulemap")
+		for EXPECT in ${EXPECTING[*]}
+		do
+			if [ -f "${EXPECT}" ]; then
+				echo " GOOD: Found expected file: \"${EXPECT}\""
+			else
+				echo "ERROR: Did not file expected file: \"${EXPECT}\""
+				VALID=0
+			fi
+		done
+
+	else
+		echo "ERROR: \"${LIB_BIN}\" not found. Please be sure it has been built (see README.md)"
+		VALID=0
+	fi
+	
+	if [ $VALID -ne 1 ]; then
+		fail "Invalid framework"
+	fi
+}
+
+function valid_macos()
+{
+	echo "Validating macos framework..."
+	
+	local VALID=1
+	local BUILD_DIR="${MAC_BUILD_DIR}"
+	local LIB_BIN="${BUILD_DIR}/${FRAMEWORK_BIN}"
+	
+	if [ -r "${LIB_BIN}" ]; then
+		# Check expected architectures
+		local REZ=$($LIPO_B -info "${LIB_BIN}")
+		if [ "$REZ" != "Non-fat file: OpenSSL-macOS/bin/openssl.framework/openssl is architecture: x86_64" ]; then
+			echo "ERROR: Unexpected result from $LIPO_B: \"${REZ}\""
+			VALID=0
+		else
+			echo " GOOD: ${REZ}"
+		fi
+		
+		local EXPECTING=("${BUILD_DIR}/${FRAMEWORK}/Modules/module.modulemap")
 		for EXPECT in ${EXPECTING[*]}
 		do
 			if [ -f "${EXPECT}" ]; then
@@ -209,11 +271,7 @@ case $command in
 		fi
     ;;
     valid)
-		if [[ $# -le 0 ]]; then
-			valid
-		else
-			usage
-		fi
+		valid $@
     ;;
     clean)
 		if [[ $# -le 0 ]]; then

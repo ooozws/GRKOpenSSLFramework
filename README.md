@@ -25,16 +25,18 @@ While the repository does contain the pre-built frameworks, if you want to re-bu
 #### iOS
 1. Open in Xcode: OpenSSL/OpenSSL-iOS/OpenSSL-iOS.xcodeproj
 2. Clean Build Folder (Option-Shift-Command-K)
-3. Build
-4. Use the `./_master_build.sh valid` command to validate the built framework.
-5. Result is located: OpenSSL/OpenSSL-iOS/bin/openssl.framework
+3. Ensure "Generic iOS Device" is the selected build target.
+4. Build
+5. Use the `./_master_build.sh valid ios` command to validate the built framework.
+6. Result is located: OpenSSL/OpenSSL-iOS/bin/openssl.framework
 
 #### macOS
 1. Open in Xcode: OpenSSL/OpenSSL-macOS/OpenSSL-macOS.xcodeproj
 2. Clean Build Folder (Option-Shift-Command-K)
 3. Build
 4. Build again. This is needed to ensure the modulemap file is available.
-5. Result is located: OpenSSL/OpenSSL-macOS/bin/openssl.framework
+5. Use the `./_master_build.sh valid macos` command to validate the built framework.
+6. Result is located: OpenSSL/OpenSSL-macOS/bin/openssl.framework
 
 ### Updating OpenSSL Version
 
