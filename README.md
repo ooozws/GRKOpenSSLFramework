@@ -40,7 +40,7 @@ While the repository does contain the pre-built frameworks, if you want to re-bu
 
 ### Updating OpenSSL Version
 
-The build scripts and projects are all tailored for the 1.1.0 series of OpenSSL, so if you're attempting to use a different series you might run into some issues.
+The build scripts and projects are all tailored for the 1.0 series of OpenSSL, so if you're attempting to use a different series you might run into some issues.
 
 1. Download the source tarball from [https://www.openssl.org/source/](https://www.openssl.org/source/)
 2. Download the PGP sig as well, and validate the tarball's signature.
