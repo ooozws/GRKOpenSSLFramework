@@ -19,6 +19,7 @@ OPENSSL_VERSION="1.0.2p"
 FRAMEWORK="openssl.framework"
 FRAMEWORK_BIN="${FRAMEWORK}/openssl"
 
+PODSPEC_FILE='./GRKOpenSSLFramework.podspec'
 # macOS configuration
 MAC_HEADER_DEST="OpenSSL-macOS/OpenSSL-macOS/openssl.h"
 MAC_HEADER_TEMPLATE="OpenSSL-macOS/OpenSSL-macOS/openssl_umbrella_template.h"
