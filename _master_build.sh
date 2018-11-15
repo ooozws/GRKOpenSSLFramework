@@ -223,6 +223,7 @@ function valid_macos()
 function clean()
 {
 	echo "Cleaning macOS..."
+	set +e
 	set -x
 	$RM_B "${MAC_HEADER_DEST}"
 	$RM_B -rf "${MAC_INCLUDES_DIR}"
@@ -237,6 +238,7 @@ function clean()
 	$RM_B -rf "${IOS_LIB_DIR}"
 	$RM_B -rf "${IOS_BUILD_DIR}"
 	[ $DEBUG -ne 1 ] && set +x
+	set -e
 
 	echo "Clean complete"
 }
