@@ -102,7 +102,8 @@ build()
    rm -rf "openssl-${OPENSSL_VERSION}"
 }
 
-build "i386" "${IPHONESIMULATOR_SDK}" "ios"
+# Not building the i386 (32 bit) architecture for simulator (see below)
+# build "i386" "${IPHONESIMULATOR_SDK}" "ios"
 build "x86_64" "${IPHONESIMULATOR_SDK}" "ios"
 build "armv7" "${IPHONEOS_SDK}" "ios"
 build "armv7s" "${IPHONEOS_SDK}" "ios"
@@ -113,7 +114,9 @@ cp -r /tmp/openssl-${OPENSSL_VERSION}-arm64/include/openssl include-ios/
 
 rm -rf /tmp/openssl-${OPENSSL_VERSION}*
 
-build "i386" "${OSX_SDK}" "macos"
+# i386 is no longer available (deprecated) as of Xcode 10+
+# macOS 10.6.8 or above can run 64-bit, so not building the i386 (32 bit) architecture has minor impact.
+# build "i386" "${OSX_SDK}" "macos"
 build "x86_64" "${OSX_SDK}" "macos"
 
 mkdir -p include-macos
