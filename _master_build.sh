@@ -62,6 +62,11 @@ function usage()
 
 function build()
 {
+	# Read the deployment target versions from the podspec
+	PODSPEC=$(< "${PODSPEC_FILE}")
+	export OSX_DEPLOYMENT_VERSION=$(echo "${PODSPEC}" | grep 's.osx.deployment_target' | sed -Ee "s|.*'(.+)'.*|\1|g")
+	export IPHONEOS_DEPLOYMENT_VERSION=$(echo "${PODSPEC}" | grep 's.ios.deployment_target' | sed -Ee "s|.*'(.+)'.*|\1|g")
+
 	# Build OpenSSL
 	echo "Building OpenSSL ${OPENSSL_VERSION}..."
 	source ./build.sh
