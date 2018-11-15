@@ -253,6 +253,7 @@ set -eu
 # Fully qualified binaries (_B suffix to prevent collisions)
 RM_B="/bin/rm"
 GREP_B="/usr/bin/grep"
+SED_B="/usr/bin/sed"
 LIPO_B="/usr/bin/lipo"
 OTOOL_B="/usr/bin/otool"
 
