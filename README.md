@@ -4,13 +4,30 @@ OpenSSL CocoaPod which vends pre-built frameworks for iOS and OSX.
 
 ### Notice
 
-This is merely a wrapper which builds off of work done by others. The original comes from 
+This is a wrapper which builds off of work done by others. The original comes from 
 [https://github.com/krzyzanowskim/OpenSSL](https://github.com/krzyzanowskim/OpenSSL) and 
 includes work done by [@jcavar](https://github.com/jcavar/OpenSSL) to build proper
 frameworks. I have repackaged that work as a CocoaPod such that OpenSSL can be used by
 macOS and iOS projects requiring frameworks.
 
 Please see the Reference section below for more details.
+
+### Architecture
+
+This will build the framework to support the following architectures and platforms:
+
+* iOS Simulator
+	* x86_64
+
+* iOS SDK
+	* armv7
+	* armv7s
+	* arm64
+
+* macOS SDK
+	* x86_64 
+
+Please note that as of OpenSSL version `1.0.2.p` this build uses Xcode 10+ which made the i386 (32 bit) architecture unavailable, so no i386 architectures are built. macOS 10.6.8 or above can run 64-bit, so not building the i386 (32 bit) architecture has minor impact.
 
 ### Installing
 
@@ -34,9 +51,8 @@ While the repository does contain the pre-built frameworks, if you want to re-bu
 1. Open in Xcode: OpenSSL/OpenSSL-macOS/OpenSSL-macOS.xcodeproj
 2. Clean Build Folder (Option-Shift-Command-K)
 3. Build
-4. Build again. This is needed to ensure the modulemap file is available.
-5. Use the `./_master_build.sh valid macos` command to validate the built framework.
-6. Result is located: OpenSSL/OpenSSL-macOS/bin/openssl.framework
+4. Use the `./_master_build.sh valid macos` command to validate the built framework.
+5. Result is located: OpenSSL/OpenSSL-macOS/bin/openssl.framework
 
 ### Updating OpenSSL Version
 
