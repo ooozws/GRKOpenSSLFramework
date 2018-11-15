@@ -16,26 +16,25 @@
 
 OPENSSL_VERSION="1.0.2p"
 
-FRAMEWORK="openssl.framework"
+FRAMEWORK='openssl.framework'
 FRAMEWORK_BIN="${FRAMEWORK}/openssl"
-
 PODSPEC_FILE='./GRKOpenSSLFramework.podspec'
 # macOS configuration
-MAC_HEADER_DEST="OpenSSL-macOS/OpenSSL-macOS/openssl.h"
-MAC_HEADER_TEMPLATE="OpenSSL-macOS/OpenSSL-macOS/openssl_umbrella_template.h"
-MAC_INCLUDES_DIR="include-macos"
-MAC_LIB_DIR="lib-macos"
-MAC_BUILD_DIR="OpenSSL-macOS/bin"
+MAC_HEADER_DEST='OpenSSL-macOS/OpenSSL-macOS/openssl.h'
+MAC_HEADER_TEMPLATE='OpenSSL-macOS/OpenSSL-macOS/openssl_umbrella_template.h'
+MAC_INCLUDES_DIR='include-macos'
+MAC_LIB_DIR='lib-macos'
+MAC_BUILD_DIR='OpenSSL-macOS/bin'
 
 # iOS configuration
-IOS_HEADER_DEST="OpenSSL-iOS/OpenSSL-iOS/openssl.h"
-IOS_HEADER_TEMPLATE="OpenSSL-iOS/OpenSSL-iOS/openssl_umbrella_template.h"
-IOS_INCLUDES_DIR="include-ios"
-IOS_LIB_DIR="lib-ios"
-IOS_BUILD_DIR="OpenSSL-iOS/bin"
+IOS_HEADER_DEST='OpenSSL-iOS/OpenSSL-iOS/openssl.h'
+IOS_HEADER_TEMPLATE='OpenSSL-iOS/OpenSSL-iOS/openssl_umbrella_template.h'
+IOS_INCLUDES_DIR='include-ios'
+IOS_LIB_DIR='lib-ios'
+IOS_BUILD_DIR='OpenSSL-iOS/bin'
 
-UMBRELLA_HEADER_SCRIPT="framework_scripts/create_umbrella_header.sh"
-UMBRELLA_STATIC_INCLUDES="framework_scripts/static_includes.txt"
+UMBRELLA_HEADER_SCRIPT='framework_scripts/create_umbrella_header.sh'
+UMBRELLA_STATIC_INCLUDES='framework_scripts/static_includes.txt'
 
 ###
 
