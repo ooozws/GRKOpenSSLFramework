@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # This script builds a static version of
-# OpenSSL ${OPENSSL_VERSION} for iOS and OSX that contains code for armv6, armv7, armv7s, arm64, i386 and x86_64.
+# OpenSSL ${OPENSSL_VERSION} for iOS and OSX that contains code for armv6, armv7, armv7s, arm64, and x86_64.
 
 # Setup paths to stuff we need
 
