@@ -102,8 +102,7 @@ build()
    rm -rf "openssl-${OPENSSL_VERSION}"
 }
 
-# Not building the i386 (32 bit) architecture for simulator (see below)
-# build "i386" "${IPHONESIMULATOR_SDK}" "ios"
+build "i386" "${IPHONESIMULATOR_SDK}" "ios"
 build "x86_64" "${IPHONESIMULATOR_SDK}" "ios"
 build "armv7" "${IPHONEOS_SDK}" "ios"
 build "armv7s" "${IPHONEOS_SDK}" "ios"

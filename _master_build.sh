@@ -128,7 +128,7 @@ function valid_ios()
 	if [ -r "${LIB_BIN}" ]; then
 		# Check expected architectures
 		local REZ=$($LIPO_B -info "${LIB_BIN}")
-		if [ "$REZ" != "Architectures in the fat file: OpenSSL-iOS/bin/openssl.framework/openssl are: x86_64 armv7 armv7s arm64 " ]; then
+		if [ "$REZ" != "Architectures in the fat file: OpenSSL-iOS/bin/openssl.framework/openssl are: i386 x86_64 armv7 armv7s arm64 " ]; then
 			echo "ERROR: Unexpected result from $LIPO_B: \"${REZ}\""
 			VALID=0
 		else
@@ -149,7 +149,7 @@ function valid_ios()
 		done
 	
 		# Check for bitcode where not expected
-		local ARCHS=("")
+		local ARCHS=("i386")
 		for ARCH in ${ARCHS[*]}
 		do
 			local REZ=$($OTOOL_B -arch ${ARCH} -l "${LIB_BIN}" | $GREP_B LLVM)
