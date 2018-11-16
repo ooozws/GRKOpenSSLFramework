@@ -19,6 +19,7 @@ OPENSSL_VERSION="1.0.2p"
 FRAMEWORK='openssl.framework'
 FRAMEWORK_BIN="${FRAMEWORK}/openssl"
 PODSPEC_FILE='./GRKOpenSSLFramework.podspec'
+
 # macOS configuration
 MAC_HEADER_DEST='OpenSSL-macOS/OpenSSL-macOS/openssl.h'
 MAC_HEADER_TEMPLATE='OpenSSL-macOS/OpenSSL-macOS/openssl_umbrella_template.h'
@@ -34,7 +35,7 @@ IOS_LIB_DIR='lib-ios'
 IOS_BUILD_DIR='OpenSSL-iOS/bin'
 
 UMBRELLA_HEADER_SCRIPT='framework_scripts/create_umbrella_header.sh'
-UMBRELLA_STATIC_INCLUDES='framework_scripts/static_includes.txt'
+export UMBRELLA_STATIC_INCLUDES='framework_scripts/static_includes.txt'
 
 ###
 
@@ -79,14 +80,14 @@ function build()
 
 function header()
 {
-	export CONTENT=$(<"${UMBRELLA_STATIC_INCLUDES}")
-
 	# Create the macOS umbrella header
 	HEADER_DEST="${MAC_HEADER_DEST}"
 	HEADER_TEMPLATE="${MAC_HEADER_TEMPLATE}"
 	INCLUDES_DIR="${MAC_INCLUDES_DIR}"
 	source "${UMBRELLA_HEADER_SCRIPT}"
 	echo "Created $HEADER_DEST"
+
+	echo ""
 
 	# Create the iOS umbrella header
 	HEADER_DEST="${IOS_HEADER_DEST}"
