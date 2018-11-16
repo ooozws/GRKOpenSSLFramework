@@ -149,7 +149,7 @@ function valid_ios()
 		done
 	
 		# Check for bitcode where not expected
-		local ARCHS=("i386")
+		local ARCHS=("")
 		for ARCH in ${ARCHS[*]}
 		do
 			local REZ=$($OTOOL_B -arch ${ARCH} -l "${LIB_BIN}" | $GREP_B LLVM)
@@ -200,7 +200,7 @@ function valid_macos()
 			echo " GOOD: ${REZ}"
 		fi
 		
-		local EXPECTING=("${BUILD_DIR}/${FRAMEWORK}/Modules/module.modulemap")
+		local EXPECTING=("${BUILD_DIR}/${FRAMEWORK}/Modules/module.modulemap" "${BUILD_DIR}/${FRAMEWORK}/Versions/A/_CodeSignature/CodeResources")
 		for EXPECT in ${EXPECTING[*]}
 		do
 			if [ -f "${EXPECT}" ]; then
