@@ -427,7 +427,7 @@
 		C71BFA0D1D395FEB006DBF18 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0940;
+				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = levigroker;
 				TargetAttributes = {
 					C71BFA151D395FEC006DBF18 = {

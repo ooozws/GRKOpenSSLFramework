@@ -14,27 +14,28 @@
 
 ### Configuration
 
-OPENSSL_VERSION="1.0.2o"
+OPENSSL_VERSION="1.0.2p"
 
-FRAMEWORK="openssl.framework"
+FRAMEWORK='openssl.framework'
 FRAMEWORK_BIN="${FRAMEWORK}/openssl"
+PODSPEC_FILE='./GRKOpenSSLFramework.podspec'
 
 # macOS configuration
-MAC_HEADER_DEST="OpenSSL-macOS/OpenSSL-macOS/openssl.h"
-MAC_HEADER_TEMPLATE="OpenSSL-macOS/OpenSSL-macOS/openssl_umbrella_template.h"
-MAC_INCLUDES_DIR="include-macos"
-MAC_LIB_DIR="lib-macos"
-MAC_BUILD_DIR="OpenSSL-macOS/bin"
+MAC_HEADER_DEST='OpenSSL-macOS/OpenSSL-macOS/openssl.h'
+MAC_HEADER_TEMPLATE='OpenSSL-macOS/OpenSSL-macOS/openssl_umbrella_template.h'
+MAC_INCLUDES_DIR='include-macos'
+MAC_LIB_DIR='lib-macos'
+MAC_BUILD_DIR='OpenSSL-macOS/bin'
 
 # iOS configuration
-IOS_HEADER_DEST="OpenSSL-iOS/OpenSSL-iOS/openssl.h"
-IOS_HEADER_TEMPLATE="OpenSSL-iOS/OpenSSL-iOS/openssl_umbrella_template.h"
-IOS_INCLUDES_DIR="include-ios"
-IOS_LIB_DIR="lib-ios"
-IOS_BUILD_DIR="OpenSSL-iOS/bin"
+IOS_HEADER_DEST='OpenSSL-iOS/OpenSSL-iOS/openssl.h'
+IOS_HEADER_TEMPLATE='OpenSSL-iOS/OpenSSL-iOS/openssl_umbrella_template.h'
+IOS_INCLUDES_DIR='include-ios'
+IOS_LIB_DIR='lib-ios'
+IOS_BUILD_DIR='OpenSSL-iOS/bin'
 
-UMBRELLA_HEADER_SCRIPT="framework_scripts/create_umbrella_header.sh"
-UMBRELLA_STATIC_INCLUDES="framework_scripts/static_includes.txt"
+UMBRELLA_HEADER_SCRIPT='framework_scripts/create_umbrella_header.sh'
+export UMBRELLA_STATIC_INCLUDES='framework_scripts/static_includes.txt'
 
 ###
 
@@ -62,6 +63,11 @@ function usage()
 
 function build()
 {
+	# Read the deployment target versions from the podspec
+	PODSPEC=$(< "${PODSPEC_FILE}")
+	export OSX_DEPLOYMENT_VERSION=$(echo "${PODSPEC}" | grep 's.osx.deployment_target' | sed -Ee "s|.*'(.+)'.*|\1|g")
+	export IPHONEOS_DEPLOYMENT_VERSION=$(echo "${PODSPEC}" | grep 's.ios.deployment_target' | sed -Ee "s|.*'(.+)'.*|\1|g")
+
 	# Build OpenSSL
 	echo "Building OpenSSL ${OPENSSL_VERSION}..."
 	source ./build.sh
@@ -74,14 +80,14 @@ function build()
 
 function header()
 {
-	export CONTENT=$(<"${UMBRELLA_STATIC_INCLUDES}")
-
 	# Create the macOS umbrella header
 	HEADER_DEST="${MAC_HEADER_DEST}"
 	HEADER_TEMPLATE="${MAC_HEADER_TEMPLATE}"
 	INCLUDES_DIR="${MAC_INCLUDES_DIR}"
 	source "${UMBRELLA_HEADER_SCRIPT}"
 	echo "Created $HEADER_DEST"
+
+	echo ""
 
 	# Create the iOS umbrella header
 	HEADER_DEST="${IOS_HEADER_DEST}"
@@ -194,7 +200,7 @@ function valid_macos()
 			echo " GOOD: ${REZ}"
 		fi
 		
-		local EXPECTING=("${BUILD_DIR}/${FRAMEWORK}/Modules/module.modulemap")
+		local EXPECTING=("${BUILD_DIR}/${FRAMEWORK}/Modules/module.modulemap" "${BUILD_DIR}/${FRAMEWORK}/Versions/A/_CodeSignature/CodeResources")
 		for EXPECT in ${EXPECTING[*]}
 		do
 			if [ -f "${EXPECT}" ]; then
@@ -218,6 +224,7 @@ function valid_macos()
 function clean()
 {
 	echo "Cleaning macOS..."
+	set +e
 	set -x
 	$RM_B "${MAC_HEADER_DEST}"
 	$RM_B -rf "${MAC_INCLUDES_DIR}"
@@ -232,6 +239,7 @@ function clean()
 	$RM_B -rf "${IOS_LIB_DIR}"
 	$RM_B -rf "${IOS_BUILD_DIR}"
 	[ $DEBUG -ne 1 ] && set +x
+	set -e
 
 	echo "Clean complete"
 }
@@ -246,6 +254,7 @@ set -eu
 # Fully qualified binaries (_B suffix to prevent collisions)
 RM_B="/bin/rm"
 GREP_B="/usr/bin/grep"
+SED_B="/usr/bin/sed"
 LIPO_B="/usr/bin/lipo"
 OTOOL_B="/usr/bin/otool"
 

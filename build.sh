@@ -10,7 +10,7 @@ OPENSSL_VERSION=${OPENSSL_VERSION:-""}
 DEVELOPER=$(xcode-select --print-path)
 
 IPHONEOS_SDK_VERSION=$(xcrun --sdk iphoneos --show-sdk-version)
-IPHONEOS_DEPLOYMENT_VERSION="6.0"
+IPHONEOS_DEPLOYMENT_VERSION=${IPHONEOS_DEPLOYMENT_VERSION:-"6.0"}
 IPHONEOS_PLATFORM=$(xcrun --sdk iphoneos --show-sdk-platform-path)
 IPHONEOS_SDK=$(xcrun --sdk iphoneos --show-sdk-path)
 
@@ -18,7 +18,7 @@ IPHONESIMULATOR_PLATFORM=$(xcrun --sdk iphonesimulator --show-sdk-platform-path)
 IPHONESIMULATOR_SDK=$(xcrun --sdk iphonesimulator --show-sdk-path)
 
 OSX_SDK_VERSION=$(xcrun --sdk macosx --show-sdk-version)
-OSX_DEPLOYMENT_VERSION="10.8"
+OSX_DEPLOYMENT_VERSION=${OSX_DEPLOYMENT_VERSION:-"10.8"}
 OSX_PLATFORM=$(xcrun --sdk macosx --show-sdk-platform-path)
 OSX_SDK=$(xcrun --sdk macosx --show-sdk-path)
 
@@ -113,7 +113,9 @@ cp -r /tmp/openssl-${OPENSSL_VERSION}-arm64/include/openssl include-ios/
 
 rm -rf /tmp/openssl-${OPENSSL_VERSION}*
 
-build "i386" "${OSX_SDK}" "macos"
+# i386 is no longer available (deprecated) as of Xcode 10+
+# macOS 10.6.8 or above can run 64-bit, so not building the i386 (32 bit) architecture has minor impact.
+# build "i386" "${OSX_SDK}" "macos"
 build "x86_64" "${OSX_SDK}" "macos"
 
 mkdir -p include-macos

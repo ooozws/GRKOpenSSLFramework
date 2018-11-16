@@ -429,7 +429,7 @@
 		C71BF9F81D395F47006DBF18 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0940;
+				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = levigroker;
 				TargetAttributes = {
 					C71BFA001D395F47006DBF18 = {
@@ -477,7 +477,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "source \"${SRCROOT}/OpenSSL-iOS/build-framework-ios.sh\"";
+			shellScript = "source \"${SRCROOT}/OpenSSL-iOS/build-framework-ios.sh\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
