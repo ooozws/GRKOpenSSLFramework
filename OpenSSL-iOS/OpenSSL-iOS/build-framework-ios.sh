@@ -47,7 +47,7 @@ IPHONE_SIMULATOR_BUILD_DIR=${BUILD_DIR}/${CONFIGURATION}-iphonesimulator
 IPHONE_DEVICE_BUILD_DIR=${BUILD_DIR}/${CONFIGURATION}-iphoneos
 
 echo "building simulator archs"
-xcodebuild -project "${PROJECT_FILE_PATH}" -target "${TARGET_NAME}" -configuration "${CONFIGURATION}" -sdk iphonesimulator BUILD_DIR="${BUILD_DIR}" OBJROOT="${OBJROOT}" BUILD_ROOT="${BUILD_ROOT}" CONFIGURATION_BUILD_DIR="${IPHONE_SIMULATOR_BUILD_DIR}" SYMROOT="${SYMROOT}" ARCHS='i386 x86_64' VALID_ARCHS='i386 x86_64' $ACTION
+xcodebuild -project "${PROJECT_FILE_PATH}" -target "${TARGET_NAME}" -configuration "${CONFIGURATION}" -sdk iphonesimulator BUILD_DIR="${BUILD_DIR}" OBJROOT="${OBJROOT}/simulator" BUILD_ROOT="${BUILD_ROOT}" CONFIGURATION_BUILD_DIR="${IPHONE_SIMULATOR_BUILD_DIR}" SYMROOT="${SYMROOT}" ARCHS='x86_64' VALID_ARCHS='x86_64' $ACTION
 
 # Copy the framework structure to the universal folder (clean it first)
 $RM_B -rf "${UNIVERSAL_OUTPUTFOLDER}"
@@ -60,10 +60,10 @@ $CP_B -R "${IPHONE_DEVICE_BUILD_DIR}/${PRODUCT_NAME}.framework" "${UNIVERSAL_OUT
 # Build the other (non-simulator) platform
 
 echo "building arm64"
-xcodebuild -project "${PROJECT_FILE_PATH}" -target "${TARGET_NAME}" -configuration "${CONFIGURATION}" -sdk iphoneos BUILD_DIR="${BUILD_DIR}" OBJROOT="${OBJROOT}" BUILD_ROOT="${BUILD_ROOT}" CONFIGURATION_BUILD_DIR="${IPHONE_DEVICE_BUILD_DIR}/arm64" SYMROOT="${SYMROOT}" ENABLE_BITCODE=YES BITCODE_GENERATION_MODE=bitcode ARCHS='arm64' VALID_ARCHS='arm64' $ACTION
+xcodebuild -project "${PROJECT_FILE_PATH}" -target "${TARGET_NAME}" -configuration "${CONFIGURATION}" -sdk iphoneos BUILD_DIR="${BUILD_DIR}" OBJROOT="${OBJROOT}/arm64" BUILD_ROOT="${BUILD_ROOT}" CONFIGURATION_BUILD_DIR="${IPHONE_DEVICE_BUILD_DIR}/arm64" SYMROOT="${SYMROOT}" ENABLE_BITCODE=YES BITCODE_GENERATION_MODE=bitcode ARCHS='arm64' VALID_ARCHS='arm64' $ACTION
 
 echo "building armv7 armv7s"
-xcodebuild -project "${PROJECT_FILE_PATH}" -target "${TARGET_NAME}" -configuration "${CONFIGURATION}" -sdk iphoneos BUILD_DIR="${BUILD_DIR}" OBJROOT="${OBJROOT}" BUILD_ROOT="${BUILD_ROOT}"  CONFIGURATION_BUILD_DIR="${IPHONE_DEVICE_BUILD_DIR}/armv7" SYMROOT="${SYMROOT}" ENABLE_BITCODE=YES BITCODE_GENERATION_MODE=bitcode ARCHS='armv7 armv7s' VALID_ARCHS='armv7 armv7s' $ACTION
+xcodebuild -project "${PROJECT_FILE_PATH}" -target "${TARGET_NAME}" -configuration "${CONFIGURATION}" -sdk iphoneos BUILD_DIR="${BUILD_DIR}" OBJROOT="${OBJROOT}/armv7" BUILD_ROOT="${BUILD_ROOT}"  CONFIGURATION_BUILD_DIR="${IPHONE_DEVICE_BUILD_DIR}/armv7" SYMROOT="${SYMROOT}" ENABLE_BITCODE=YES BITCODE_GENERATION_MODE=bitcode ARCHS='armv7 armv7s' VALID_ARCHS='armv7 armv7s' $ACTION
 
 # Smash them together to combine all architectures
 echo "smashing together"
