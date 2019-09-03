@@ -427,7 +427,7 @@
 		C71BFA0D1D395FEB006DBF18 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1010;
+				LastUpgradeCheck = 1100;
 				ORGANIZATIONNAME = levigroker;
 				TargetAttributes = {
 					C71BFA151D395FEC006DBF18 = {
@@ -440,6 +440,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = C71BFA0C1D395FEB006DBF18;
