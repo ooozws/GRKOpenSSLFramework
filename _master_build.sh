@@ -128,7 +128,7 @@ function valid_ios()
 	if [ -r "${LIB_BIN}" ]; then
 		# Check expected architectures
 		local REZ=$($LIPO_B -info "${LIB_BIN}")
-		if [ "$REZ" != "Architectures in the fat file: OpenSSL-iOS/bin/openssl.framework/openssl are: i386 x86_64 armv7 armv7s arm64 " ]; then
+		if [ "$REZ" != "Architectures in the fat file: ${LIB_BIN} are: i386 x86_64 armv7 armv7s arm64 " ]; then
 			echo "ERROR: Unexpected result from $LIPO_B: \"${REZ}\""
 			VALID=0
 		else
@@ -193,7 +193,7 @@ function valid_macos()
 	if [ -r "${LIB_BIN}" ]; then
 		# Check expected architectures
 		local REZ=$($LIPO_B -info "${LIB_BIN}")
-		if [ "$REZ" != "Non-fat file: OpenSSL-macOS/bin/openssl.framework/openssl is architecture: x86_64" ]; then
+		if [ "$REZ" != "Non-fat file: ${LIB_BIN} is architecture: x86_64" ]; then
 			echo "ERROR: Unexpected result from $LIPO_B: \"${REZ}\""
 			VALID=0
 		else
