@@ -14,7 +14,7 @@
 
 ### Configuration
 
-OPENSSL_VERSION="1.0.2s"
+OPENSSL_VERSION="1.0.2t"
 
 FRAMEWORK='openssl.framework'
 FRAMEWORK_BIN="${FRAMEWORK}/openssl"
