@@ -55,8 +55,8 @@ build()
    echo "Building: ARCH: ${ARCH} SDK: ${SDK} TYPE: ${TYPE}..."
 
    export BUILD_TOOLS="${DEVELOPER}"
-   export CC="${BUILD_TOOLS}/usr/bin/gcc -fembed-bitcode -arch ${ARCH}"
-
+  #export CC="${BUILD_TOOLS}/usr/bin/gcc -fembed-bitcode -arch ${ARCH}"
+   export CC="${BUILD_TOOLS}/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -fembed-bitcode -arch ${ARCH}"
    mkdir -p "lib-${TYPE}"
    
    rm -rf openssl-${OPENSSL_VERSION}
