@@ -427,7 +427,7 @@
 		C71BFA0D1D395FEB006DBF18 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1100;
+				LastUpgradeCheck = 1140;
 				ORGANIZATIONNAME = levigroker;
 				TargetAttributes = {
 					C71BFA151D395FEC006DBF18 = {
@@ -437,11 +437,11 @@
 			};
 			buildConfigurationList = C71BFA101D395FEB006DBF18 /* Build configuration list for PBXProject "OpenSSL-macOS" */;
 			compatibilityVersion = "Xcode 8.0";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
+				Base,
 			);
 			mainGroup = C71BFA0C1D395FEB006DBF18;
 			productRefGroup = C71BFA171D395FEC006DBF18 /* Products */;
