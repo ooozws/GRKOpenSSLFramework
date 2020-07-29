@@ -475,7 +475,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "ditto \"${BUILT_PRODUCTS_DIR}\" \"${SRCROOT}/bin\"";
+			shellScript = "ditto \"${BUILT_PRODUCTS_DIR}\" \"${SRCROOT}/bin\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
